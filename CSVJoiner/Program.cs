@@ -5,8 +5,11 @@
     
     var content = File.ReadAllLines(filePath);
 
-    var header1 = content.Skip(1).Take(1).First().Split(',').ToList();
-    var header2 = content.Skip(2).Take(1).First().Split(',').ToList();
+    var name = filePath.Split(".csv")[0];
+    int mtyLines = int.Parse(name.Substring(name.Length -2)) <= 13 ? 1 : 2;
+    
+    var header1 = content.Skip(mtyLines).Take(1).First().Split(',').ToList();
+    var header2 = content.Skip(mtyLines+1).Take(1).First().Split(',').ToList();
 
     var newHeader = header1.Zip(header2).Select((x1, x2) =>
     {
